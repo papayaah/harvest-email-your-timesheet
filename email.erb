@@ -1,0 +1,73 @@
+<% current_day = nil %>
+<% next_day = false %>
+<% hours = 0 %>
+
+<html>
+ <head>
+   <style type="text/css">
+    <%= style %>
+   </style>
+ </head>
+ <body>
+   <table>
+     <thead>
+       <tr>
+         <th>Project Name</th>
+         <th>Notes</th>
+         <th>Hours</th>         
+         <th>Amount</th>
+     </thead>
+     <tbody>
+        <% all_entries.each_with_index do |entry, index|  %>          
+                
+          <% if current_day != Time.parse(entry.created_at).day %>
+            <% current_day = Time.parse(entry.created_at).day %>
+
+            <% if hours != 0  %>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><b><%= "%.2f" % hours %></b></td>
+              <td></td>                                          
+            </tr>
+            <% hours = 0 %>
+            <% end %>
+
+            <tr>
+              <td colspan="4">
+                <b><%= Time.parse(entry.created_at).strftime "%b %d, %Y" %></b>
+              </td>
+            </tr>
+          <% end %>    
+          
+          <tr <%= index % 2 > 0 ? 'class="odd"' : '' %>>
+            <td><%= entry.project.name %></td>
+            <td><%= entry.notes.gsub(/\n/, '<br/>') %>
+            <td><%= entry.hours %></td>
+            <td></td>
+          </tr>
+          
+          <% hours += entry.hours.to_f %>
+   
+         <% end %>
+         
+         <tr>
+           <td></td>
+           <td></td>
+           <td><b><%= "%.2f" % hours %></b></td>
+           <td></td>                                          
+         </tr>
+
+          <tr>
+            <td></td>
+            <td align="right"><b>Total hours:</b></td>
+            <td><b><%= "%.2f" % total_hours %></b></td>
+            <td></td>                                          
+          </tr>
+     </tbody>
+    
+    </table>
+    
+
+ </body>
+</html>
