@@ -69,7 +69,8 @@ puts 'Sending email to ' + Settings.mail_recipient
 begin
   Pony.mail(:to => Settings.mail_recipient, :subject => Settings.mail_subject, :html_body => html, :via => :smtp, :via_options => Settings.mail_options )
 rescue
-  puts '   Error: Unable to send email. Did you correctly set your SMTP settings?'
+  puts '   Error: Unable to send email. Did you correctly set your mail settings?'
   exit
 end
-puts '...Done!'
+
+puts '...and Success! We are done.'
