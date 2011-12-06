@@ -1,6 +1,7 @@
 <% current_day = nil %>
 <% next_day = false %>
 <% hours = 0 %>
+<% total = 0 %>
 
 <html>
  <head>
@@ -13,6 +14,7 @@
      <thead>
        <tr>
          <th>Project Name</th>
+         
          <th>Notes</th>
          <th>Hours</th>         
          <th>Amount</th>
@@ -28,8 +30,9 @@
               <td></td>
               <td></td>
               <td><b><%= "%.2f" % hours %></b></td>
-              <td></td>                                          
+              <td><b><%= "$%.2f" % total %></b></td>              
             </tr>
+            <% total = 0.0 %>
             <% hours = 0 %>
             <% end %>
 
@@ -44,9 +47,10 @@
             <td><%= entry.project.name %></td>
             <td><%= entry.notes.gsub(/\n/, '<br/>') %>
             <td><%= entry.hours %></td>
-            <td></td>
+            <td><%= "$%.2f" % entry.amount %></td>
           </tr>
           
+          <% total += entry.amount %>
           <% hours += entry.hours.to_f %>
    
          <% end %>
@@ -55,14 +59,14 @@
            <td></td>
            <td></td>
            <td><b><%= "%.2f" % hours %></b></td>
-           <td></td>                                          
+           <td><b><%= "$%.2f" % total %></b></td>                            
          </tr>
 
           <tr>
             <td></td>
-            <td align="right"><b>Total hours:</b></td>
+            <td align="right"><b>Total:</b></td>
             <td><b><%= "%.2f" % total_hours %></b></td>
-            <td></td>                                          
+            <td><b><%= "$%.2f" % total_amount %></b></td>
           </tr>
      </tbody>
     

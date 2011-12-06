@@ -15,6 +15,12 @@ def Time.at_beginning_of_month
   parse("01/now.month/now.year")
 end
 
+module Harvest
+  class TimeEntry < Hashie::Dash
+    property :amount
+  end
+end
+
 # connect to the user's harvest account
 puts 'Connecting to harvest...'
 harvest = Harvest.client(Settings.harvest[:subdomain], Settings.harvest[:username], Settings.harvest[:password], :ssl => false) 
@@ -41,14 +47,17 @@ projects = harvest.projects.all.select {|p| p.client_id == client.id }
 # get all time entries for this project and put in one array
 all_entries = Array.new
 total_hours = 0
+total_amount = 0.0
 
 projects.each do |project|
   entries = harvest.reports.time_by_project(project, Time.at_beginning_of_month, Time.now)
 
   entries.each do |entry|
     entry['project'] = project
-    all_entries << entry
+    entry['amount'] = project.hourly_rate.to_f * entry.hours.to_f
+    all_entries << entry  
     total_hours += entry.hours.to_f
+    total_amount += (project.hourly_rate.to_f * entry.hours.to_f)
   end
   
 end
