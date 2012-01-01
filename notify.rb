@@ -2,7 +2,7 @@
 
 require 'rubygems'
 require 'erb'
-require "harvested"
+require 'harvested'
 require 'pony'
 
 load 'settings.rb'
@@ -12,8 +12,15 @@ def Time.yesterday
 end
 
 def Time.at_beginning_of_month
-  parse("01/now.month/now.year")
+  this_month = Date.today
+  parse("#{this_month.year}-#{this_month.month}-01")
 end
+
+def Time.at_beginning_of_last_month
+  last_month = Date.today << 1
+  parse("#{last_month.year}-#{last_month.month}-01")
+end
+
 
 module Harvest
   class TimeEntry < Hashie::Dash
