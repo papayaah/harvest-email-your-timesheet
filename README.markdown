@@ -1,5 +1,9 @@
 Email your timesheet to your boss.
 
+Shows current and last month breakdown of project hours and their corresponding total amount.
+
+Also shows a summary at the bottom of total hours per project.
+
 Usage
 =====
 
