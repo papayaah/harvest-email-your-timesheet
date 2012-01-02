@@ -60,9 +60,10 @@ total_amount = 0.0
 projects.each do |project|
   entries = harvest.reports.time_by_project(project, Time.at_beginning_of_last_month, Time.now)
   summaries[project.name] = Hash.new
+  summaries[project.name]['hourly_rate'] = project.hourly_rate.to_f  
   summaries[project.name]["#{Time.at_beginning_of_last_month.year}-#{Time.at_beginning_of_last_month.month}"] = 0.0
   summaries[project.name]["#{Time.now.year}-#{Time.now.month}"] = 0  
-
+  
   entries.each do |entry|
     entry['project'] = project
     entry['amount'] = project.hourly_rate.to_f * entry.hours.to_f
@@ -70,7 +71,7 @@ projects.each do |project|
     total_hours += entry.hours.to_f
     total_amount += (project.hourly_rate.to_f * entry.hours.to_f)
     
-    summaries[project.name]["#{Time.parse(entry.created_at).year}-#{Time.parse(entry.created_at).month}"] += entry.hours.to_f
+    summaries[project.name]["#{Time.parse(entry.created_at).year}-#{Time.parse(entry.created_at).month}"] += entry.hours.to_f    
   end
     
 end
