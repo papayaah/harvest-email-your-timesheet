@@ -82,7 +82,7 @@
          <tr/>
          <tr>
            <th>Project Name</th>
-           <th>Hours</th>
+           <th>Hours</th>          
            <th>Total amount</th>
          <tr/>
        </thead>
@@ -98,7 +98,7 @@
               <% total_hours += hours %>
               <%= "%.2f" % hours %>              
             </td>
-            <td><%= "$%.2f" % (hours * summaries[project.name]['hourly_rate']) %>
+            <td><%= "$%.2f" % (hours * summaries[project.name]['hourly_rate']) %> @ $<%= summaries[project.name]['hourly_rate'] %>/hr</td>
           </tr>
           <% end %>                      
            <tr>
@@ -116,7 +116,7 @@
                 <% total_hours += hours %>
                 <%= "%.2f" % hours %>              
               </td>
-              <td><%= "$%.2f" % (hours * summaries[project.name]['hourly_rate']) %>              
+              <td><%= "$%.2f" % (hours * summaries[project.name]['hourly_rate']) %> @ $<%= summaries[project.name]['hourly_rate'] %>/hr</td>
             </tr>
             <% end %>         
              <tr>
