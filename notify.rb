@@ -53,11 +53,15 @@ projects = harvest.projects.all.select {|p| p.client_id == client.id }
 
 # get all time entries for this project and put in one array
 all_entries = Array.new
+summaries = Hash.new
 total_hours = 0
 total_amount = 0.0
 
 projects.each do |project|
-  entries = harvest.reports.time_by_project(project, Time.at_beginning_of_month, Time.now)
+  entries = harvest.reports.time_by_project(project, Time.at_beginning_of_last_month, Time.now)
+  summaries[project.name] = Hash.new
+  summaries[project.name]["#{Time.at_beginning_of_last_month.year}-#{Time.at_beginning_of_last_month.month}"] = 0.0
+  summaries[project.name]["#{Time.now.year}-#{Time.now.month}"] = 0  
 
   entries.each do |entry|
     entry['project'] = project
@@ -65,12 +69,18 @@ projects.each do |project|
     all_entries << entry  
     total_hours += entry.hours.to_f
     total_amount += (project.hourly_rate.to_f * entry.hours.to_f)
+    
+    summaries[project.name]["#{Time.parse(entry.created_at).year}-#{Time.parse(entry.created_at).month}"] += entry.hours.to_f
   end
-  
+    
 end
+
+puts summaries
 
 # sort by date descending
 all_entries.sort! { |b,a| a.created_at <=> b.created_at }
+
+all_entries.select{ |k, v| Time.parse(k.created_at).month == Time.now.month }
  
 # assemble html
 puts 'Assembling html. Using stylesheet: ' + Settings.stylesheet

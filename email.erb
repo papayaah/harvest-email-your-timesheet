@@ -72,6 +72,52 @@
     
     </table>
     
+    <br/>
+    <br/>
+    
+     <table>
+       <thead>
+         <tr>
+           <th colspan="2">Project Summary Hours</th>
+         <tr/>
+       </thead>
+       <tbody>
+          <% total_hours = 0 %>
+          <% projects.each do |project| %>         
+          <tr>
+            <td>
+              <%= project.name %>
+            </td>
+            <td>
+              <% hours = summaries[project.name]["#{Time.at_beginning_of_last_month.year}-#{Time.at_beginning_of_last_month.month}"] %>              
+              <% total_hours += hours %>
+              <%= "%.2f" % hours %>              
+            </td>
+          </tr>
+          <% end %>                      
+           <tr>
+            <td><b>Total hours last month:</b></td>         
+            <td><%= "%.2f" % total_hours %></td>
+          </tr>
+            <% total_hours = 0 %>          
+            <% projects.each do |project| %>         
+            <tr>
+              <td>
+                <%= project.name %>
+              </td>
+              <td>
+                <% hours = summaries[project.name]["#{Time.now.year}-#{Time.now.month}"] %>
+                <% total_hours += hours %>
+                <%= "%.2f" % hours %>              
+              </td>
+            </tr>
+            <% end %>         
+             <tr>
+              <td><b>Total hours this month:</b></td>         
+              <td><%= "%.2f" % total_hours %></td>
+            </tr>
+       </tbody>
+    </table>
 
  </body>
 </html>
