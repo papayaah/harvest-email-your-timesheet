@@ -1,0 +1,15 @@
+Email your timesheet to your boss.
+
+Usage
+=====
+
+1. Rename settings.rb.sample to settings.rb
+2. Change settings to match yours
+3. On your shell - execute "./notify.rb" and it will send an email similar to something below
+
+Screenshot
+==========
+
+![harvest notify screenshot](http://d.pr/vZv6 "")
+
+
