@@ -1,3 +1,6 @@
+Harvest Email Your Timesheet
+============================
+
 Email your timesheet to your boss.
 
 Shows current and last month breakdown of project hours and their corresponding total amount.
