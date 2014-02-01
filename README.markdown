@@ -14,6 +14,6 @@ Usage
 Screenshot
 ==========
 
-![harvest notify screenshot](http://d.pr/vZv6 "")
+![harvest notify screenshot](screenshot.png "")
 
 

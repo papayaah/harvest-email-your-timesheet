@@ -1,13 +1,16 @@
 module Settings
 
+  # recipient's email address
   def self.mail_recipient
     'nowhere@changeme.com,anotherrecipient@changeme.com'
   end
   
+  # the subject that will appear on the recipients email client
   def self.mail_subject
     '[My Name Timesheet]'
   end
   
+  # we will use this to send the email
   def self.mail_options
     { 
      :address              => 'smtp.gmail.com',
@@ -20,10 +23,12 @@ module Settings
     }
   end
   
+  # this is the email template
   def self.stylesheet
     'styles/cuskosky.css'
   end
 
+  # your harvest credentials
   def self.harvest
     {
       :subdomain => 'subdomain',
@@ -32,6 +37,7 @@ module Settings
     }
   end
   
+  # your actual harvest cient name
   def self.client_name
     'Juan Dela Cruz'
   end
