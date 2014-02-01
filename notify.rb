@@ -21,13 +21,6 @@ def Time.at_beginning_of_last_month
   parse("#{last_month.year}-#{last_month.month}-01")
 end
 
-
-module Harvest
-  class TimeEntry < Hashie::Dash
-    property :amount
-  end
-end
-
 # connect to the user's harvest account
 puts 'Connecting to harvest...'
 harvest = Harvest.client(Settings.harvest[:subdomain], Settings.harvest[:username], Settings.harvest[:password], :ssl => false) 
